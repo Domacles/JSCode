@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/JSTest/nbproject/private/
+/HelloWorld/nbproject/private/
+/HTML5Application/nbproject/private/
