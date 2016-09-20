@@ -47,10 +47,6 @@ function getShader(gl, type) {
         alert("Create Shader Error1");
         return null;
     }
-    if (str == null) {
-        alert("Create Shader Error2");
-        return null;
-    }
     gl.shaderSource(shader, shaderScript);
     gl.compileShader(shader);
     if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)
@@ -66,27 +62,30 @@ function wheelHandler(ev){
     transl += offset;
 }
 
+var mx = 0, my = 0;
 var isMouseDown = false;
 function mouseDown(ev){
     isMouseDown = true;
-}
-
-var mx = 0, my = 0;
-function mouseUpev(){
-    isMouseDown = false;
     mx = ev.clientX;
     my = ev.clientY;
 }
 
+function mouseUp(ev){
+    isMouseDown = false;
+}
+
 function mousemove(ev) {
-    var xoffset, yoffset, zoffset;
+    var xoffset = 0, yoffset = 0, zoffset = 0;
     if(isMouseDown == false) return ;
     if (ev.shiftKey) {
         zoffset = Math.abs(ev.clientX - mx) > Math.abs(ev.clientY - my) ? ev.clientX - mx : ev.clientY - my;
+        zoffset = zoffset * 0.1;    
     } else {
-        xoffset = ev.clientX - mx;
-        yoffset = ev.clientY - my;
+        yoffset = (ev.clientX - mx) * 0.1;
+        xoffset = (ev.clientY - my) * 0.1;
     }
     draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, xoffset, yRot, yoffset, zRot, zoffset);
     xRot += xoffset, yRot += yoffset, zRot += zoffset;
+    mx = ev.clientX;
+    my = ev.clientY;
 }

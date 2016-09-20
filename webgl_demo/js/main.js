@@ -16,7 +16,7 @@ function main() {
     c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;        //calculate w and h
     canvas.width = c_w; canvas.height = c_h;                            //set canvas size
     gl.viewport(0, 0, c_w, c_h);                                        //set viewport
-    gl.clearColor(0.1, 0.1, 1.0, 1.0);                                  //set clearColor
+    gl.clearColor(0, 0.5, 1, 1);                                        //set clearColor
     gl.clear(gl.COLOR_BUFFER_BIT);                                      //run clear
     gl.enable(gl.DEPTH_TEST);                                           //open the test of depth_buffer
     gl.depthFunc(gl.LEQUAL);
@@ -30,9 +30,9 @@ function main() {
     gl.useProgram(program);                                             //use program
 
     /** BingData for attribute in shader **/
-    var pos = gl.getAttribLocation(prog, "aPos");                       //get the adress of attribute->aPos in vex_shader
+    var pos = gl.getAttribLocation(program, "aPos");                    //get the adress of attribute->aPos in vex_shader
     gl.enableVertexAttribArray(pos);                                    //enable write data when use gl.vertexAttribPointer
-    var norm = gl.getAttribLocation(prog, "aNorm");                     //get the adress of attribute->aNorm in vex_shader
+    var norm = gl.getAttribLocation(program, "aNorm");                  //get the adress of attribute->aNorm in vex_shader
     gl.enableVertexAttribArray(norm);                                   //enable write data when use gl.vertexAttribPointer
 
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());                  //create Buffer and BingBuffer (gl.ARRAY_BUFFER)
@@ -44,8 +44,8 @@ function main() {
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, f, gl.STATIC_DRAW);          //input date from memory to graphic device buffer
 
     /** Create mvp for model transform **/
-    mvMatLoc = gl.getUniformLocation(prog, "mvMatrix");                 //get address object of mvMatrix
-    prMatLoc = gl.getUniformLocation(prog, "prMatrix");                 //get address object of prMatrix
+    mvMatLoc = gl.getUniformLocation(program, "mvMatrix");              //get address object of mvMatrix
+    prMatLoc = gl.getUniformLocation(program, "prMatrix");              //get address object of prMatrix
 
     /** draw model **/
     draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, 0, yRot, 0, zRot, 0);
@@ -77,9 +77,12 @@ function draw(gl, mvMatLoc, prMatLoc, c_w, c_h, trans1, t_offset, xRot, xR_offse
     
     prMatrix.perspective(45, c_w / c_h, .1, 100);
 
-    rotMat.rotate(xRot + xR_offset, 1, 0, 0);
-    rotMat.rotate(yRot + yR_offset, 0, 1, 0);
-    rotMat.rotate(zRot + zR_offset, 0, 0, 1);
+    rotMatrix.rotate(xRot, 1, 0, 0);
+    rotMatrix.rotate(yRot, 0, 1, 0);
+    rotMatrix.rotate(zRot, 0, 0, 1);
+    rotMatrix.rotate(xR_offset, 1, 0, 0);
+    rotMatrix.rotate(yR_offset, 0, 1, 0);
+    rotMatrix.rotate(zR_offset, 0, 0, 1);
     
     mvMatrix.translate(0, 0, 0);
     mvMatrix.multRight(rotMatrix);
@@ -92,7 +95,7 @@ function draw(gl, mvMatLoc, prMatLoc, c_w, c_h, trans1, t_offset, xRot, xR_offse
     mvMatrix.multRight(prMatrix);
     gl.uniformMatrix4fv(prMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
     
-    gl.drawElements(gl.TRIANGLES, fl, gl.UNSIGNED_SHORT, 0);
+    gl.drawElements(gl.TRIANGLES, f.length, gl.UNSIGNED_SHORT, 0);
 
     gl.flush();
 }
