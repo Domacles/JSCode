@@ -1,0 +1,106 @@
+{
+	// Place your snippets for JavaScript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, ${id} and ${id:label} and ${1:label} for variables. Variables with the same id are connected.
+	// Example:
+	"Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');"
+		],
+		"description": "Log output to console"
+	},
+	"Print start message": {
+		"prefix": "file_description",
+		"body": [
+			"/**",
+			"* Description:",
+			"*   $1",
+			"**/"
+		],
+		"description": "Make a file note"
+	},
+	/** Use for Canvas **/
+	"Canvas_2D_Context": {
+		"prefix": "canvas_2d_getContext",
+		"body": [
+			"if($1.getContext == 0) return 0;",
+			"var ctx = ${1}.getContext('2d')"
+		],
+		"description": "获取Canvas的2D上下文类，并判断是否获取成功."
+	},
+	"Canvas_2D_fillStyle": {
+		"prefix": "canvas_2d_fillStyle",
+		"body": [
+			"$1.fillStyle=$2"
+		],
+		"description": "fillStyle属性设置或返回用于填充绘画的颜色、渐变或模式."
+	},
+	/** Use for WebGL **/
+	"Canvas_3D_WebGLContext": {
+		"prefix": "canvas_3d_getWebGLContext",
+		"body": [
+			"// need try-catch",
+			"var gl = $1.getContext('experimental-webgl');",
+			"// var gl = $1.getContext('webgl');",
+			"if(gl == null) return 0;",
+			"gl.clearColor(1, 1, 1, 1);",
+			"gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);"
+		],
+		"description": "获取Canvas的3D_WebGL上下文类，成功后进行基本准备."
+	},
+	"Canvas_3D_WebGLViewport": {
+		"prefix": "canvas_3d_getWebGLViewport",
+		"body": [
+			"// need gl.getError()",
+			"gl.viewport($1, $2, $3, $4);"
+		],
+		"description": "设置WebGL的视口位置以及大小."
+	},
+	"Canvas_3D_WebGLShader": {
+		"prefix": "canvas_3d_WebGLShader",
+		"body": [
+			"// need gl.getError()",
+			"var vShader = gl.createShader(gl.VERTEX_SHADER);",
+			"var fShader = gl.createShader(gl.FRAGMENT_SHADER);",
+			"gl.shaderSource(vShader, $1); // ${1} is glsl's text",
+			"gl.shaderSource(fShader, $2); // ${2} is glsl's text",
+			"gl.compileShader(vShader);",
+			"gl.compileShader(fShader);",
+			"// need gl.getError()"
+		],
+		"description": "创建WebGL的Shader, 并加载着色器程序，最后进行编译."
+	},
+	"Canvas_3D_WebGLProgram": {
+		"prefix": "canvas_3d_WebGLProgram",
+		"body": [
+			"// need gl.getError()",
+			"var program = gl.createProgram();",
+			"gl.attachShader(program, vShader);",
+			"gl.attachShader(program, fShader);",
+			"gl.linkProgram(program);",
+			"gl.useProgram(program);",
+			"// need gl.getError()"
+		],
+		"description": "创建WebGL程序，连接Shader,并启动WebGL程序."
+	},
+	"Canvas_3D_WebGLBuffer": {
+		"prefix": "canvas_3d_getWebBuffer",
+		"body": [
+			"// need gl.getError()",
+			"var $1 = gl.createBuffer();",
+			"gl.bindBuffer(gl.ARRAY_BUFFER, ${1});",
+			"gl.bufferData(gl.ARRAY_BUFFER, $2, gl.STATIC_DRAW); // type of ${2} is ArrayBuffer"
+		],
+		"description": "创建WebGL的buffer, 并进行缓冲区ARRAY_BUFFER类型绑定和数据STATIC_DRAW模式绑定."
+	},
+	"Canvas_3D_WebGLDataView": {
+		"prefix": "canvas_3d_webGLDataView",
+		"body": [
+			"var $1 = new ArrayBuffer($2);",
+			"var bytes = ${1}.byteLength;",
+			"var $3 = new DataView(${1}, 0, ${2});"
+		],
+		"description": "为Buffer创建DataView(非WebGL独有),对Buffer进行精确控制."
+	}
+}
