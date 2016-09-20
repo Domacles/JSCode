@@ -62,6 +62,8 @@ function main() {
     gl.clearColor(0.1, 0.1, 1.0, 1.0);                                  //set clearColor
     gl.clear(gl.COLOR_BUFFER_BIT);                                      //run clear
     gl.enable(gl.DEPTH_TEST);                                           //open the test of depth_buffer
+    gl.depthFunc(gl.LEQUAL);
+    gl.clearDepth(1.0);
 
     /** init WebGL Program **/
     var program = gl.createProgram();                                   //create WebGL program what run at graphic device
@@ -83,6 +85,15 @@ function main() {
 
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());          //create Buffer and BingBuffer (gl.ELEMENT_ARRAY_BUFFER)
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, f, gl.STATIC_DRAW);          //input date from memory to graphic device buffer
+
+    var prMatrix = new CanvasMatrix4();
+    var mvMatrix = new CanvasMatrix4();
+    var rotMatrix = new CanvasMatrix4();
+    prMatrix.perspective(45, c_w/c_h, 0.1, 100);
+    rotMatrix.makeIdentity();
+    rotMatrix.rotate(150, 0, 1, 0);
+    var mvMatLoc = gl.getUniformLocation(prog,"mvMatrix");
+    var prMatLoc = gl.getUniformLocation(prog,"prMatrix");
 }
 
 /**
