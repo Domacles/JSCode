@@ -3,7 +3,7 @@
 <head>
     <title>Demo</title>
     <link rel=stylesheet href="css/base.css">
-    <script id="shader-vs" type="x-shader/x-vertex"> 
+    <script id="shader-vsh" type="vsh"> 
         attribute vec3 aPos;
         attribute vec3 aNorm;
         uniform mat4 mvMatrix;
@@ -18,7 +18,7 @@
             // col += vec3(1., 1., 1.) * pow( max( 0., dot(rotNorm, dirHalf) ), 40.);
         }
 </script>
-    <script id="shader-fs" type="x-shader/x-fragment"> 
+    <script id="shader-fsh" type="fsh"> 
         precision mediump float;
         varying vec3 col;
         void main(void) {
