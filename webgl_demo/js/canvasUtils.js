@@ -37,19 +37,19 @@ function getShader(gl, type) {
     var shader = null, shaderScript = null;
     try {
         if (type == "vsh") {
-            shader = gl.createShader(gl.VERTEX_SHADER);
-            shaderScript = document.getElementById("shader-vsh").textContent;
+            shader = gl.createShader(gl.VERTEX_SHADER);                         //create vertex_shader
+            shaderScript = document.getElementById("shader-vsh").textContent;   //get vsh source
         } else if (type == "fsh") {
-            shader = gl.createShader(gl.FRAGMENT_SHADER);
-            shaderScript = document.getElementById("shader-fsh").textContent;
+            shader = gl.createShader(gl.FRAGMENT_SHADER);                       //create vertex_shader
+            shaderScript = document.getElementById("shader-fsh").textContent;   //get fsh source
         }
     } catch (e) {
         alert("Create Shader Error1");
         return null;
     }
-    gl.shaderSource(shader, shaderScript);
-    gl.compileShader(shader);
-    if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)
+    gl.shaderSource(shader, shaderScript);                                      //source code bind shader
+    gl.compileShader(shader);                                                   //compileShader
+    if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)                  //getErrorState
         alert("Create Shader Error3 : " + gl.getShaderInfoLog(shader));
     return shader;
 }
@@ -65,7 +65,7 @@ function wheelHandler(ev){
 var mx = 0, my = 0;
 var isMouseDown = false;
 function mouseDown(ev){
-    isMouseDown = true;
+    isMouseDown = true;                                                         //flag for mouseDownState
     mx = ev.clientX;
     my = ev.clientY;
 }
@@ -77,7 +77,7 @@ function mouseUp(ev){
 function mousemove(ev) {
     var xoffset = 0, yoffset = 0, zoffset = 0;
     if(isMouseDown == false) return ;
-    if (ev.shiftKey) {
+    if (ev.shiftKey) {                                                          //true when you press 'shift' key during your mosemove 
         zoffset = Math.abs(ev.clientX - mx) > Math.abs(ev.clientY - my) ? ev.clientX - mx : ev.clientY - my;
         zoffset = zoffset * 0.1;    
     } else {

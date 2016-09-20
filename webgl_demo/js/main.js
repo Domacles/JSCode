@@ -9,7 +9,7 @@ var xRot = 0, yRot = 0, zRot = 0;
  */
 function main() {
     /** init WebGL **/
-    var size = Math.min(window.innerWidth, window.innerHeight) - 10;
+    var size = Math.min(window.innerWidth, window.innerHeight) - 20;
     var canvas = document.getElementById("canvas");                     //get vanvas_object
     gl = initGL(canvas);                                                //initGL
     addEventHandler(canvas);                                            //add listener for canvas
@@ -55,7 +55,7 @@ function main() {
  * When Window has changed, the element show resize with the change of window.
  */
 function resize() {
-    var size = Math.min(window.innerWidth, window.innerHeight) - 10;
+    var size = Math.min(window.innerWidth, window.innerHeight) - 20;
     var canvas = document.getElementById("canvas");
 
     c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;
@@ -71,31 +71,27 @@ function draw(gl, mvMatLoc, prMatLoc, c_w, c_h, trans1, t_offset, xRot, xR_offse
     var prMatrix = new CanvasMatrix4();
     var mvMatrix = new CanvasMatrix4();
     var rotMatrix = new CanvasMatrix4();
+    /** calculate mvpMatrix **/
     prMatrix.makeIdentity();
     rotMatrix.makeIdentity();
     mvMatrix.makeIdentity();
-    
-    prMatrix.perspective(45, c_w / c_h, .1, 100);
-
+    prMatrix.perspective(45, c_w / c_h, .1, 100);                                       
     rotMatrix.rotate(xRot, 1, 0, 0);
     rotMatrix.rotate(yRot, 0, 1, 0);
     rotMatrix.rotate(zRot, 0, 0, 1);
     rotMatrix.rotate(xR_offset, 1, 0, 0);
     rotMatrix.rotate(yR_offset, 0, 1, 0);
     rotMatrix.rotate(zR_offset, 0, 0, 1);
-    
     mvMatrix.translate(0, 0, 0);
     mvMatrix.multRight(rotMatrix);
     mvMatrix.translate(0, 0, trans1 + t_offset);
+    /** WebGL draw **/
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);                            //clear buffer_bit
 
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    gl.uniformMatrix4fv(mvMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
-    
+    gl.uniformMatrix4fv(mvMatLoc, false, new Float32Array(mvMatrix.getAsArray()));  //setval for mvMatrix in shader
     mvMatrix.multRight(prMatrix);
-    gl.uniformMatrix4fv(prMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
+    gl.uniformMatrix4fv(prMatLoc, false, new Float32Array(mvMatrix.getAsArray()));  //setval for prMatrix in shader
     
-    gl.drawElements(gl.TRIANGLES, f.length, gl.UNSIGNED_SHORT, 0);
-
-    gl.flush();
+    gl.drawElements(gl.TRIANGLES, f.length, gl.UNSIGNED_SHORT, 0);                  //dram triangles
+    gl.flush();                                                                     //flush
 }
