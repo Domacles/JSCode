@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <title>Demo</title>
+    <link rel=stylesheet href="css/base.css">
+    <script id="shader-vs" type="x-shader/x-vertex"> 
+        attribute vec3 aPos;
+        attribute vec3 aNorm;
+        uniform mat4 mvMatrix;
+        uniform mat4 prMatrix;
+        varying vec3 col;
+        const vec4 dirDif = vec4(0., 0., 1., 0.);
+        const vec4 dirHalf = vec4(-.4034, .259, .8776, 0.);
+        void main(void) {
+            gl_Position = prMatrix * vec4(aPos, 1.);
+            vec4 rotNorm = mvMatrix * vec4(aNorm, .0);
+            col = vec3(1., 1., 1.) * max( 0., dot(rotNorm, dirDif) );
+            // col += vec3(1., 1., 1.) * pow( max( 0., dot(rotNorm, dirHalf) ), 40.);
+        }
+</script>
+    <script id="shader-fs" type="x-shader/x-fragment"> 
+        precision mediump float;
+        varying vec3 col;
+        void main(void) {
+            gl_FragColor = vec4( col, 1.);
+        }
+</script>
+
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</head>
+
+<body onload="main();" onresize="resize();">
+    <canvas id="canvas"></canvas>
+</body>
+
+</html>
