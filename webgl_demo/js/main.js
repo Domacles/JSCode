@@ -1,9 +1,8 @@
 /**
  * global variable ：
  */
-var prMatrix, mvMatrix, rotMatrix;
-var mvMatLoc, prMatLoc;
-var transl = -3;
+var gl, mvMatLoc, prMatLoc;
+var transl = -3, c_w, c_h;
 var xRot = 0, yRot = 0, zRot = 0;
 /** 
  * main function, ref : http://www.ibiblio.org/e-notes/webgl/deflate/ship.html
@@ -11,10 +10,10 @@ var xRot = 0, yRot = 0, zRot = 0;
 function main() {
     /** init WebGL **/
     var size = Math.min(window.innerWidth, window.innerHeight) - 10;
-    var c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;    //calculate w and h
     var canvas = document.getElementById("canvas");                     //get vanvas_object
-    var gl = initGL(canvas);                                            //initGL
-
+    gl = initGL(canvas);                                                //initGL
+    addEventHandler(canvas);                                            //add listener for canvas
+    c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;        //calculate w and h
     canvas.width = c_w; canvas.height = c_h;                            //set canvas size
     gl.viewport(0, 0, c_w, c_h);                                        //set viewport
     gl.clearColor(0.1, 0.1, 1.0, 1.0);                                  //set clearColor
@@ -57,9 +56,9 @@ function main() {
  */
 function resize() {
     var size = Math.min(window.innerWidth, window.innerHeight) - 10;
-    var c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;
     var canvas = document.getElementById("canvas");
-    var gl = initGL(canvas);
+
+    c_w = window.innerWidth - 50, c_h = window.innerHeight - 10;
     canvas.width = c_w; canvas.height = c_h;
     gl.viewport(0, 0, c_w, c_h);
     draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, 0, yRot, 0, zRot, 0);
@@ -94,6 +93,6 @@ function draw(gl, mvMatLoc, prMatLoc, c_w, c_h, trans1, t_offset, xRot, xR_offse
     gl.uniformMatrix4fv(prMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
     
     gl.drawElements(gl.TRIANGLES, fl, gl.UNSIGNED_SHORT, 0);
-    
+
     gl.flush();
 }

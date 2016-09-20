@@ -17,6 +17,17 @@ function initGL(canvas) {
 }
 
 /**
+ * add event listener for canvas
+ */
+function addEventHandler(canvas){
+    canvas.addEventListener('DOMMouseScroll',   wheelHandler, false);   //add wheel event for FireFox
+    canvas.addEventListener('wheel',            wheelHandler, false);   //add wheel event for others
+    canvas.addEventListener('mousedown',        mouseDown,    false);   //add mouse l&&r down event
+    canvas.addEventListener('mouseup',          mouseUp,      false);   //add mouse l&&r up event
+    canvas.addEventListener('mousemove',        mousemove,    false);   //add mouse l&&r move event
+}
+
+/**
  * getShader use code in file.
  * @param filename : the file name of code src.
  * @param type : vsh or fsh.
@@ -45,4 +56,37 @@ function getShader(gl, type) {
     if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)
         alert("Create Shader Error3 : " + gl.getShaderInfoLog(shader));
     return shader;
+}
+
+function wheelHandler(ev){
+    var offset = ((ev.detail || ev.wheelDelta) > 0) ? 0.1 : -0.1;
+    ev.preventDefault();
+
+    draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, 0, yRot, 0, zRot, 0);
+    transl += offset;
+}
+
+var isMouseDown = false;
+function mouseDown(ev){
+    isMouseDown = true;
+}
+
+var mx = 0, my = 0;
+function mouseUpev(){
+    isMouseDown = false;
+    mx = ev.clientX;
+    my = ev.clientY;
+}
+
+function mousemove(ev) {
+    var xoffset, yoffset, zoffset;
+    if(isMouseDown == false) return ;
+    if (ev.shiftKey) {
+        zoffset = Math.abs(ev.clientX - mx) > Math.abs(ev.clientY - my) ? ev.clientX - mx : ev.clientY - my;
+    } else {
+        xoffset = ev.clientX - mx;
+        yoffset = ev.clientY - my;
+    }
+    draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, xoffset, yRot, yoffset, zRot, zoffset);
+    xRot += xoffset, yRot += yoffset, zRot += zoffset;
 }
