@@ -1,20 +1,20 @@
-CanvasMatrix4 = function(m) {
+CanvasMatrix4 = function (m) {
     if (typeof m == 'object') {
-        if ("length"in m && m.length >= 16) {
+        if ("length" in m && m.length >= 16) {
             this.load(m[0], m[1], m[2], m[3], m[4], m[5], m[6], m[7], m[8], m[9], m[10], m[11], m[12], m[13], m[14], m[15]);
-            return
+            return;
         } else if (m instanceof CanvasMatrix4) {
             this.load(m);
-            return
+            return;
         }
     }
-    this.makeIdentity()
-}
-;
-CanvasMatrix4.prototype.load = function() {
+    this.makeIdentity();
+};
+
+CanvasMatrix4.prototype.load = function () {
     if (arguments.length == 1 && typeof arguments[0] == 'object') {
         var matrix = arguments[0];
-        if ("length"in matrix && matrix.length == 16) {
+        if ("length" in matrix && matrix.length == 16) {
             this.m11 = matrix[0];
             this.m12 = matrix[1];
             this.m13 = matrix[2];
@@ -31,9 +31,9 @@ CanvasMatrix4.prototype.load = function() {
             this.m42 = matrix[13];
             this.m43 = matrix[14];
             this.m44 = matrix[15];
-            return
+            return;
         }
-        if (arguments[0]instanceof CanvasMatrix4) {
+        if (arguments[0] instanceof CanvasMatrix4) {
             this.m11 = matrix.m11;
             this.m12 = matrix.m12;
             this.m13 = matrix.m13;
@@ -50,21 +50,21 @@ CanvasMatrix4.prototype.load = function() {
             this.m42 = matrix.m42;
             this.m43 = matrix.m43;
             this.m44 = matrix.m44;
-            return
+            return;
         }
     }
-    this.makeIdentity()
-}
-;
-CanvasMatrix4.prototype.getAsArray = function() {
-    return [this.m11, this.m12, this.m13, this.m14, this.m21, this.m22, this.m23, this.m24, this.m31, this.m32, this.m33, this.m34, this.m41, this.m42, this.m43, this.m44]
-}
-;
-CanvasMatrix4.prototype.getAsWebGLFloatArray = function() {
-    return new WebGLFloatArray(this.getAsArray())
-}
-;
-CanvasMatrix4.prototype.makeIdentity = function() {
+    this.makeIdentity();
+};
+
+CanvasMatrix4.prototype.getAsArray = function () {
+    return [this.m11, this.m12, this.m13, this.m14, this.m21, this.m22, this.m23, this.m24, this.m31, this.m32, this.m33, this.m34, this.m41, this.m42, this.m43, this.m44];
+};
+
+CanvasMatrix4.prototype.getAsWebGLFloatArray = function () {
+    return new WebGLFloatArray(this.getAsArray());
+};
+
+CanvasMatrix4.prototype.makeIdentity = function () {
     this.m11 = 1;
     this.m12 = 0;
     this.m13 = 0;
@@ -80,10 +80,10 @@ CanvasMatrix4.prototype.makeIdentity = function() {
     this.m41 = 0;
     this.m42 = 0;
     this.m43 = 0;
-    this.m44 = 1
-}
-;
-CanvasMatrix4.prototype.transpose = function() {
+    this.m44 = 1;
+};
+
+CanvasMatrix4.prototype.transpose = function () {
     var tmp = this.m12;
     this.m12 = this.m21;
     this.m21 = tmp;
@@ -101,13 +101,13 @@ CanvasMatrix4.prototype.transpose = function() {
     this.m42 = tmp;
     tmp = this.m34;
     this.m34 = this.m43;
-    this.m43 = tmp
-}
-;
-CanvasMatrix4.prototype.invert = function() {
+    this.m43 = tmp;
+};
+
+CanvasMatrix4.prototype.invert = function () {
     var det = this._determinant4x4();
     if (Math.abs(det) < 1e-8)
-        return null ;
+        return null;
     this._makeAdjoint();
     this.m11 /= det;
     this.m12 /= det;
@@ -124,10 +124,10 @@ CanvasMatrix4.prototype.invert = function() {
     this.m41 /= det;
     this.m42 /= det;
     this.m43 /= det;
-    this.m44 /= det
-}
-;
-CanvasMatrix4.prototype.translate = function(x, y, z) {
+    this.m44 /= det;
+};
+
+CanvasMatrix4.prototype.translate = function (x, y, z) {
     if (x == undefined)
         x = 0;
     if (y == undefined)
@@ -138,28 +138,28 @@ CanvasMatrix4.prototype.translate = function(x, y, z) {
     matrix.m41 = x;
     matrix.m42 = y;
     matrix.m43 = z;
-    this.multRight(matrix)
-}
-;
-CanvasMatrix4.prototype.scale = function(x, y, z) {
+    this.multRight(matrix);
+};
+
+CanvasMatrix4.prototype.scale = function (x, y, z) {
     if (x == undefined)
         x = 1;
     if (z == undefined) {
         if (y == undefined) {
             y = x;
-            z = x
+            z = x;
         } else
-            z = 1
+            z = 1;
     } else if (y == undefined)
         y = x;
     var matrix = new CanvasMatrix4();
     matrix.m11 = x;
     matrix.m22 = y;
     matrix.m33 = z;
-    this.multRight(matrix)
-}
-;
-CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
+    this.multRight(matrix);
+};
+
+CanvasMatrix4.prototype.rotate = function (angle, x, y, z) {
     angle = angle / 180 * Math.PI;
     angle /= 2;
     var sinA = Math.sin(angle);
@@ -169,11 +169,11 @@ CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
     if (length == 0) {
         x = 0;
         y = 0;
-        z = 1
+        z = 1;
     } else if (length != 1) {
         x /= length;
         y /= length;
-        z /= length
+        z /= length;
     }
     var mat = new CanvasMatrix4();
     if (x == 1 && y == 0 && z == 0) {
@@ -188,7 +188,7 @@ CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
         mat.m33 = 1 - 2 * sinA2;
         mat.m14 = mat.m24 = mat.m34 = 0;
         mat.m41 = mat.m42 = mat.m43 = 0;
-        mat.m44 = 1
+        mat.m44 = 1;
     } else if (x == 0 && y == 1 && z == 0) {
         mat.m11 = 1 - 2 * sinA2;
         mat.m12 = 0;
@@ -201,7 +201,7 @@ CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
         mat.m33 = 1 - 2 * sinA2;
         mat.m14 = mat.m24 = mat.m34 = 0;
         mat.m41 = mat.m42 = mat.m43 = 0;
-        mat.m44 = 1
+        mat.m44 = 1;
     } else if (x == 0 && y == 0 && z == 1) {
         mat.m11 = 1 - 2 * sinA2;
         mat.m12 = 2 * sinA * cosA;
@@ -214,7 +214,7 @@ CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
         mat.m33 = 1;
         mat.m14 = mat.m24 = mat.m34 = 0;
         mat.m41 = mat.m42 = mat.m43 = 0;
-        mat.m44 = 1
+        mat.m44 = 1;
     } else {
         var x2 = x * x;
         var y2 = y * y;
@@ -230,12 +230,12 @@ CanvasMatrix4.prototype.rotate = function(angle, x, y, z) {
         mat.m33 = 1 - 2 * (x2 + y2) * sinA2;
         mat.m14 = mat.m24 = mat.m34 = 0;
         mat.m41 = mat.m42 = mat.m43 = 0;
-        mat.m44 = 1
+        mat.m44 = 1;
     }
-    this.multRight(mat)
-}
-;
-CanvasMatrix4.prototype.multRight = function(mat) {
+    this.multRight(mat);
+};
+
+CanvasMatrix4.prototype.multRight = function (mat) {
     var m11 = (this.m11 * mat.m11 + this.m12 * mat.m21 + this.m13 * mat.m31 + this.m14 * mat.m41);
     var m12 = (this.m11 * mat.m12 + this.m12 * mat.m22 + this.m13 * mat.m32 + this.m14 * mat.m42);
     var m13 = (this.m11 * mat.m13 + this.m12 * mat.m23 + this.m13 * mat.m33 + this.m14 * mat.m43);
@@ -267,10 +267,10 @@ CanvasMatrix4.prototype.multRight = function(mat) {
     this.m41 = m41;
     this.m42 = m42;
     this.m43 = m43;
-    this.m44 = m44
-}
-;
-CanvasMatrix4.prototype.multLeft = function(mat) {
+    this.m44 = m44;
+};
+
+CanvasMatrix4.prototype.multLeft = function (mat) {
     var m11 = (mat.m11 * this.m11 + mat.m12 * this.m21 + mat.m13 * this.m31 + mat.m14 * this.m41);
     var m12 = (mat.m11 * this.m12 + mat.m12 * this.m22 + mat.m13 * this.m32 + mat.m14 * this.m42);
     var m13 = (mat.m11 * this.m13 + mat.m12 * this.m23 + mat.m13 * this.m33 + mat.m14 * this.m43);
@@ -302,10 +302,10 @@ CanvasMatrix4.prototype.multLeft = function(mat) {
     this.m41 = m41;
     this.m42 = m42;
     this.m43 = m43;
-    this.m44 = m44
-}
-;
-CanvasMatrix4.prototype.ortho = function(left, right, bottom, top, near, far) {
+    this.m44 = m44;
+};
+
+CanvasMatrix4.prototype.ortho = function (left, right, bottom, top, near, far) {
     var tx = (left + right) / (left - right);
     var ty = (top + bottom) / (top - bottom);
     var tz = (far + near) / (far - near);
@@ -326,10 +326,10 @@ CanvasMatrix4.prototype.ortho = function(left, right, bottom, top, near, far) {
     matrix.m42 = ty;
     matrix.m43 = tz;
     matrix.m44 = 1;
-    this.multRight(matrix)
-}
-;
-CanvasMatrix4.prototype.frustum = function(left, right, bottom, top, near, far) {
+    this.multRight(matrix);
+};
+
+CanvasMatrix4.prototype.frustum = function (left, right, bottom, top, near, far) {
     var matrix = new CanvasMatrix4();
     var A = (right + left) / (right - left);
     var B = (top + bottom) / (top - bottom);
@@ -351,18 +351,18 @@ CanvasMatrix4.prototype.frustum = function(left, right, bottom, top, near, far) 
     matrix.m42 = 0;
     matrix.m43 = D;
     matrix.m44 = 0;
-    this.multRight(matrix)
-}
-;
-CanvasMatrix4.prototype.perspective = function(fovy, aspect, zNear, zFar) {
+    this.multRight(matrix);
+};
+
+CanvasMatrix4.prototype.perspective = function (fovy, aspect, zNear, zFar) {
     var top = Math.tan(fovy * Math.PI / 360) * zNear;
     var bottom = -top;
     var left = aspect * bottom;
     var right = aspect * top;
-    this.frustum(left, right, bottom, top, zNear, zFar)
-}
-;
-CanvasMatrix4.prototype.lookat = function(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz) {
+    this.frustum(left, right, bottom, top, zNear, zFar);
+};
+
+CanvasMatrix4.prototype.lookat = function (eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz) {
     var matrix = new CanvasMatrix4();
     var zx = eyex - centerx;
     var zy = eyey - centery;
@@ -371,7 +371,7 @@ CanvasMatrix4.prototype.lookat = function(eyex, eyey, eyez, centerx, centery, ce
     if (mag) {
         zx /= mag;
         zy /= mag;
-        zz /= mag
+        zz /= mag;
     }
     var yx = upx;
     var yy = upy;
@@ -386,13 +386,13 @@ CanvasMatrix4.prototype.lookat = function(eyex, eyey, eyez, centerx, centery, ce
     if (mag) {
         xx /= mag;
         xy /= mag;
-        xz /= mag
+        xz /= mag;
     }
     mag = Math.sqrt(yx * yx + yy * yy + yz * yz);
     if (mag) {
         yx /= mag;
         yy /= mag;
-        yz /= mag
+        yz /= mag;
     }
     matrix.m11 = xx;
     matrix.m12 = xy;
@@ -411,18 +411,18 @@ CanvasMatrix4.prototype.lookat = function(eyex, eyey, eyez, centerx, centery, ce
     matrix.m43 = 0;
     matrix.m44 = 1;
     matrix.translate(-eyex, -eyey, -eyez);
-    this.multRight(matrix)
-}
-;
-CanvasMatrix4.prototype._determinant2x2 = function(a, b, c, d) {
-    return a * d - b * c
-}
-;
-CanvasMatrix4.prototype._determinant3x3 = function(a1, a2, a3, b1, b2, b3, c1, c2, c3) {
-    return a1 * this._determinant2x2(b2, b3, c2, c3) - b1 * this._determinant2x2(a2, a3, c2, c3) + c1 * this._determinant2x2(a2, a3, b2, b3)
-}
-;
-CanvasMatrix4.prototype._determinant4x4 = function() {
+    this.multRight(matrix);
+};
+
+CanvasMatrix4.prototype._determinant2x2 = function (a, b, c, d) {
+    return a * d - b * c;
+};
+
+CanvasMatrix4.prototype._determinant3x3 = function (a1, a2, a3, b1, b2, b3, c1, c2, c3) {
+    return a1 * this._determinant2x2(b2, b3, c2, c3) - b1 * this._determinant2x2(a2, a3, c2, c3) + c1 * this._determinant2x2(a2, a3, b2, b3);
+};
+
+CanvasMatrix4.prototype._determinant4x4 = function () {
     var a1 = this.m11;
     var b1 = this.m12;
     var c1 = this.m13;
@@ -439,10 +439,10 @@ CanvasMatrix4.prototype._determinant4x4 = function() {
     var b4 = this.m42;
     var c4 = this.m43;
     var d4 = this.m44;
-    return a1 * this._determinant3x3(b2, b3, b4, c2, c3, c4, d2, d3, d4) - b1 * this._determinant3x3(a2, a3, a4, c2, c3, c4, d2, d3, d4) + c1 * this._determinant3x3(a2, a3, a4, b2, b3, b4, d2, d3, d4) - d1 * this._determinant3x3(a2, a3, a4, b2, b3, b4, c2, c3, c4)
-}
-;
-CanvasMatrix4.prototype._makeAdjoint = function() {
+    return a1 * this._determinant3x3(b2, b3, b4, c2, c3, c4, d2, d3, d4) - b1 * this._determinant3x3(a2, a3, a4, c2, c3, c4, d2, d3, d4) + c1 * this._determinant3x3(a2, a3, a4, b2, b3, b4, d2, d3, d4) - d1 * this._determinant3x3(a2, a3, a4, b2, b3, b4, c2, c3, c4);
+};
+
+CanvasMatrix4.prototype._makeAdjoint = function () {
     var a1 = this.m11;
     var b1 = this.m12;
     var c1 = this.m13;
@@ -474,5 +474,5 @@ CanvasMatrix4.prototype._makeAdjoint = function() {
     this.m14 = -this._determinant3x3(b1, b2, b3, c1, c2, c3, d1, d2, d3);
     this.m24 = this._determinant3x3(a1, a2, a3, c1, c2, c3, d1, d2, d3);
     this.m34 = -this._determinant3x3(a1, a2, a3, b1, b2, b3, d1, d2, d3);
-    this.m44 = this._determinant3x3(a1, a2, a3, b1, b2, b3, c1, c2, c3)
-}
+    this.m44 = this._determinant3x3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+};

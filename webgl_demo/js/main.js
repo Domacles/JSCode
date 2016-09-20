@@ -1,52 +1,10 @@
 /**
- * getShader use code in file.
- * @param filename : the file name of code src.
- * @param type : vsh or fsh.
- * @return shader : the object of shader.
+ * global variable ：
  */
-function getShader(gl, type) {
-    var shader = null, shaderScript = null;
-    try {
-        if (type == "vsh") {
-            shader = gl.createShader(gl.VERTEX_SHADER);
-            shaderScript = document.getElementById("shader-vsh").textContent;
-        } else if (type == "fsh") {
-            shader = gl.createShader(gl.FRAGMENT_SHADER);
-            shaderScript = document.getElementById("shader-fsh").textContent;
-        }
-    } catch (e) {
-        alert("Create Shader Error1");
-        return null;
-    }
-    if (str == null) {
-        alert("Create Shader Error2");
-        return null;
-    }
-    gl.shaderSource(shader, shaderScript);
-    gl.compileShader(shader);
-    if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)
-        alert("Create Shader Error3 : " + gl.getShaderInfoLog(shader));
-    return shader;
-}
-
-/**
- * initGL.
- * @param canvas : The canvas_object of html document.
- * @return gl : WebGL_Object.
- */
-function initGL(canvas) {
-    var gl = null;
-    if (!window.WebGLRenderingContext) {
-        alert("Your browser does not support WebGL. See http://get.webgl.org");
-        return null;
-    }
-    try {
-        gl = canvas.getContext("experimental-webgl") || canvas.getContext("webgl") || canvas.getContext("webgl2");
-    } catch (e) { }
-    if (!gl) { alert("Can't get WebGL"); }
-    return gl;
-}
-
+var prMatrix, mvMatrix, rotMatrix;
+var mvMatLoc, prMatLoc;
+var transl = -3;
+var xRot = 0, yRot = 0, zRot = 0;
 /** 
  * main function, ref : http://www.ibiblio.org/e-notes/webgl/deflate/ship.html
  */
@@ -86,14 +44,12 @@ function main() {
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());          //create Buffer and BingBuffer (gl.ELEMENT_ARRAY_BUFFER)
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, f, gl.STATIC_DRAW);          //input date from memory to graphic device buffer
 
-    var prMatrix = new CanvasMatrix4();
-    var mvMatrix = new CanvasMatrix4();
-    var rotMatrix = new CanvasMatrix4();
-    prMatrix.perspective(45, c_w/c_h, 0.1, 100);
-    rotMatrix.makeIdentity();
-    rotMatrix.rotate(150, 0, 1, 0);
-    var mvMatLoc = gl.getUniformLocation(prog,"mvMatrix");
-    var prMatLoc = gl.getUniformLocation(prog,"prMatrix");
+    /** Create mvp for model transform **/
+    mvMatLoc = gl.getUniformLocation(prog, "mvMatrix");                 //get address object of mvMatrix
+    prMatLoc = gl.getUniformLocation(prog, "prMatrix");                 //get address object of prMatrix
+
+    /** draw model **/
+    draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, 0, yRot, 0, zRot, 0);
 }
 
 /**
@@ -106,4 +62,38 @@ function resize() {
     var gl = initGL(canvas);
     canvas.width = c_w; canvas.height = c_h;
     gl.viewport(0, 0, c_w, c_h);
+    draw(gl, mvMatLoc, prMatLoc, c_w, c_h, transl, 0, xRot, 0, yRot, 0, zRot, 0);
+}
+
+/**
+ * This function is used for draw model.
+ */
+function draw(gl, mvMatLoc, prMatLoc, c_w, c_h, trans1, t_offset, xRot, xR_offset, yRot, yR_offset, zRot, zR_offset) {
+    var prMatrix = new CanvasMatrix4();
+    var mvMatrix = new CanvasMatrix4();
+    var rotMatrix = new CanvasMatrix4();
+    prMatrix.makeIdentity();
+    rotMatrix.makeIdentity();
+    mvMatrix.makeIdentity();
+    
+    prMatrix.perspective(45, c_w / c_h, .1, 100);
+
+    rotMat.rotate(xRot + xR_offset, 1, 0, 0);
+    rotMat.rotate(yRot + yR_offset, 0, 1, 0);
+    rotMat.rotate(zRot + zR_offset, 0, 0, 1);
+    
+    mvMatrix.translate(0, 0, 0);
+    mvMatrix.multRight(rotMatrix);
+    mvMatrix.translate(0, 0, trans1 + t_offset);
+
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    gl.uniformMatrix4fv(mvMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
+    
+    mvMatrix.multRight(prMatrix);
+    gl.uniformMatrix4fv(prMatLoc, false, new Float32Array(mvMatrix.getAsArray()));
+    
+    gl.drawElements(gl.TRIANGLES, fl, gl.UNSIGNED_SHORT, 0);
+    
+    gl.flush();
 }

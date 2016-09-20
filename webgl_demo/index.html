@@ -9,23 +9,26 @@
         uniform mat4 mvMatrix;
         uniform mat4 prMatrix;
         varying vec3 col;
-        const vec4 dirDif = vec4(0., 0., 1., 0.);
-        const vec4 dirHalf = vec4(-.4034, .259, .8776, 0.);
-        void main(void) {
-            gl_Position = prMatrix * vec4(aPos, 1.);
-            vec4 rotNorm = mvMatrix * vec4(aNorm, .0);
-            col = vec3(1., 1., 1.) * max( 0., dot(rotNorm, dirDif) );
-            // col += vec3(1., 1., 1.) * pow( max( 0., dot(rotNorm, dirHalf) ), 40.);
+        const vec4 dirDif = vec4(0.0, 0.0, 1.0, 0.0);
+        const vec4 dirHalf = vec4(-0.4034, 0.259, 0.8776, 0.0);
+        void main(void) 
+        {
+            gl_Position = prMatrix * vec4(aPos, 1.0);
+            vec4 rotNorm = mvMatrix * vec4(aNorm, 0.0);
+            col = vec3(1.0, 1.0, 1.0) * max( 0.0, dot(rotNorm, dirDif) );
+            // col += vec3(1.0, 1.0, 1.0) * pow( max( 0.0, dot(rotNorm, dirHalf) ), 40.0);
         }
 </script>
     <script id="shader-fsh" type="fsh"> 
         precision mediump float;
         varying vec3 col;
-        void main(void) {
-            gl_FragColor = vec4( col, 1.);
+        void main(void) 
+        {
+            gl_FragColor = vec4( col, 1.0);
         }
 </script>
     <script type="text/javascript" src="js/canvasMatrix.js"></script>
+    <script type="text/javascript" src="js/canvasUtils.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 </head>
