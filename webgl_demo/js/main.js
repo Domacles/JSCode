@@ -5,6 +5,7 @@ var gl, mvMatLoc, prMatLoc;
 var transl = -3, c_w, c_h;
 var xRot = 0, yRot = 0, zRot = 0;
 /** 
+ * main function
  */
 function main() {
     /** init WebGL **/
