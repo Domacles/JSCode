@@ -5,7 +5,6 @@ var gl, mvMatLoc, prMatLoc;
 var transl = -3, c_w, c_h;
 var xRot = 0, yRot = 0, zRot = 0;
 /** 
- * main function, ref : http://www.ibiblio.org/e-notes/webgl/deflate/ship.html
  */
 function main() {
     /** init WebGL **/
