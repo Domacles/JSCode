@@ -20,6 +20,18 @@
 		],
 		"description": "Make a file note"
 	},
+	"Print function description":{
+		"prefix": "file_description",
+		"body": [
+			"/**",
+			"* Description:",
+			"*   This is a function for $1",
+			"*   @param : $2 => $2",
+			"*   @return: $3 => $3",
+			"**/"
+		],
+		"description": "Make a function note"
+	},
 	/** Use for Canvas **/
 	"Canvas_2D_Context": {
 		"prefix": "canvas_2d_getContext",
