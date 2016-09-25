@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true
+    },
+    "files": [
+        "typings/node/node.d.ts",
+        "typings/express/express.d.ts",
+        "typings/express-serve-static-core/express-serve-static-core.d.ts",
+        "typings/mime/mime.d.ts",
+        "typings/socket.io/socket.io.d.ts"
+    ]
+}
