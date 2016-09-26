@@ -19,7 +19,7 @@ var cache = {};
 *   @param : res    => res
 *   @return: null   => null
 **/
-function severSendState404(res){
+function severSendState404(res) {
     res.writeHead(
         404,
         {
@@ -38,7 +38,7 @@ function severSendState404(res){
 *   @param : fileContents   => fileContents
 *   @return: null           => null
 **/
-function sendFileFromMemory(res, filePath, fileContents){
+function sendFileFromMemory(res, filePath, fileContents) {
     res.writeHead(
         200,
         {
@@ -56,19 +56,19 @@ function sendFileFromMemory(res, filePath, fileContents){
 *   @param : absPath    => absPath
 *   @return: null       => null
 **/
-function severSendStaticFiles(res, cache, absPath){
-    if(cache[absPath]) sendFileFromMemory(res, absPath, cache[absPath]);
-    else{
-        fs.exists(absPath, (exists) =>{
-            if(exists){
-                fs.readFile(absPath, (err, data) =>{
-                    if(err) severSendState404(res);
-                    else{
+function severSendStaticFiles(res, cache, absPath) {
+    if (cache[absPath]) sendFileFromMemory(res, absPath, cache[absPath]);
+    else {
+        fs.exists(absPath, (exists) => {
+            if (exists) {
+                fs.readFile(absPath, (err, data) => {
+                    if (err) severSendState404(res);
+                    else {
                         cache[absPath] = data;
                         sendFileFromMemory(res, absPath, data);
                     }
                 });
-            }else severSendState404(res);
+            } else severSendState404(res);
         });
     }
 }
@@ -79,18 +79,18 @@ function severSendStaticFiles(res, cache, absPath){
 *   @param : function   => function
 *   @return: null       => null
 **/
-(sever = http.createServer((req, res) =>{
-    
+(sever = http.createServer((req, res) => {
+
     var filePath = false;
-    
-    if(req.url == '/') filePath = 'public/index.html';
+
+    if (req.url == '/') filePath = 'public/index.html';
     else filePath = 'public' + req.url;
 
     var absPth = './' + filePath;
 
     severSendStaticFiles(res, cache, absPth);
 
-})).listen(3000, () =>{
+})).listen(3000, () => {
     console.log("Sever listening on port 3000...");
 });
 
