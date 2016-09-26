@@ -39,13 +39,13 @@ function severSendState404(){
 *   @return: null           => null
 **/
 function sendFileFromMemory(res, filePath, fileContents){
-    response.writeHead(
+    res.writeHead(
         200,
         {
             "content-type": mime.lookup(path.basename(filePath))
         }
     );
-    response.end(fileContents);
+    res.end(fileContents);
 }
 
 /**
