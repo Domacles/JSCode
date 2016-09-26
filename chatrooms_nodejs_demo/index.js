@@ -19,11 +19,11 @@ var cache = {};
 *   @param : res    => res
 *   @return: null   => null
 **/
-function severSendState404(){
+function severSendState404(res){
     res.writeHead(
         404,
         {
-            'Content-Type:': 'text/plain'
+            'Content-Type': 'text/plain'
         }
     );
     res.write('Error 404: resource not found.');
@@ -84,7 +84,7 @@ function severSendStaticFiles(res, cache, absPath){
     var filePath = false;
     
     if(req.url == '/') filePath = 'public/index.html';
-    else filePath = 'public' + request.url;
+    else filePath = 'public' + req.url;
 
     var absPth = './' + filePath;
 
