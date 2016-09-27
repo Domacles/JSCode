@@ -39,8 +39,7 @@ var server = http.createServer((req, res) => {
 **/
 function serverSendState404(res) {
     res.writeHead(
-        404,
-        {
+        404,{
             'Content-Type': 'text/plain'
         }
     );
@@ -58,8 +57,7 @@ function serverSendState404(res) {
 **/
 function sendFileFromMemory(res, filePath, fileContents) {
     res.writeHead(
-        200,
-        {
+        200,{
             "content-type": mime.lookup(path.basename(filePath))
         }
     );
