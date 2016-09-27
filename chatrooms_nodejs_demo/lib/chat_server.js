@@ -20,7 +20,7 @@ exports.listen = function (server) {
         });
         handleClientDisconnection(socket, nickNames, namesUsed);
     });
-}
+};
 
 function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
     var name = 'Guest' + guestNumber;
@@ -31,7 +31,7 @@ function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
     });
     namesUsed.push(name);
     return guestNumber + 1;
-}
+};
 
 function joinRoom(socket, room) {
     socket.join(room);
@@ -58,7 +58,7 @@ function joinRoom(socket, room) {
             text: usersInRoomSummary
         });
     }
-}
+};
 
 function handleNameChangeAttempts(socket, nickNames, namesUsed) {
     socket.on('nameAttempt', (name) => {
@@ -89,7 +89,7 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
             }
         }
     });
-}
+};
 
 function handleMessageBroadcasting(socket, nickNames) {
     socket.on('message', (message) => {
@@ -97,14 +97,14 @@ function handleMessageBroadcasting(socket, nickNames) {
             text: nickNames[socket.id] + ': ' + message.text
         });
     });
-}
+};
 
 function handleRoomJoining(socket) {
     socket.on('join', (room) => {
         socket.leave(currentRoom[socket.id]);
         joinRoom(socket, room.newRoom);
     });
-}
+};
 
 function handleClientDisconnection(socket, nickNames, namesUsed) {
     socket.on('disconnect', () => {
@@ -112,4 +112,4 @@ function handleClientDisconnection(socket, nickNames, namesUsed) {
         delete namesUsed[nameIndex];
         delete nickNames[socket.io];
     });
-}
+};

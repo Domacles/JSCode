@@ -45,7 +45,7 @@ function serverSendState404(res) {
     );
     res.write('Error 404: resource not found.');
     res.end();
-}
+};
 
 /**
 * Description:
@@ -62,7 +62,7 @@ function sendFileFromMemory(res, filePath, fileContents) {
         }
     );
     res.end(fileContents);
-}
+};
 
 /**
 * Description:
@@ -87,7 +87,7 @@ function serverSendStaticFiles(res, cache, absPath) {
             } else serverSendState404(res);
         });
     }
-}
+};
 
 
 
