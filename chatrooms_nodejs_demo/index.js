@@ -1,17 +1,35 @@
-/**
-* Description:
-*   This is the main.js for sever.
-**/
-
-//This is the modules for this sever.
+//This is the modules for this server.
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
+var chatServer = require('./lib/chat_server.js');
 
-//Those are the objects when the sever run.
-var sever = null;
+//Those are the objects when the server run.
 var cache = {};
+var server = http.createServer((req, res) => {
+
+    var filePath = false;
+
+    if (req.url == '/') filePath = 'public/index.html';
+    else filePath = 'public' + req.url;
+
+    var absPth = './' + filePath;
+
+    serverSendStaticFiles(res, cache, absPth);
+
+});
+
+/**
+* Description:
+*   This is a function for immediate execution.
+**/
+(function (){
+    server.listen(3000, () => {
+        console.log("Server listening on port 3000...");
+    });
+    chatServer.listen(server);
+})();
 
 /**
 * Description:
@@ -19,7 +37,7 @@ var cache = {};
 *   @param : res    => res
 *   @return: null   => null
 **/
-function severSendState404(res) {
+function serverSendState404(res) {
     res.writeHead(
         404,
         {
@@ -56,46 +74,22 @@ function sendFileFromMemory(res, filePath, fileContents) {
 *   @param : absPath    => absPath
 *   @return: null       => null
 **/
-function severSendStaticFiles(res, cache, absPath) {
+function serverSendStaticFiles(res, cache, absPath) {
     if (cache[absPath]) sendFileFromMemory(res, absPath, cache[absPath]);
     else {
         fs.exists(absPath, (exists) => {
             if (exists) {
                 fs.readFile(absPath, (err, data) => {
-                    if (err) severSendState404(res);
+                    if (err) serverSendState404(res);
                     else {
                         cache[absPath] = data;
                         sendFileFromMemory(res, absPath, data);
                     }
                 });
-            } else severSendState404(res);
+            } else serverSendState404(res);
         });
     }
 }
-
-/**
-* Description:
-*   This is a function for create httpSever.
-*   @param : function   => function
-*   @return: null       => null
-**/
-(sever = http.createServer((req, res) => {
-
-    var filePath = false;
-
-    if (req.url == '/') filePath = 'public/index.html';
-    else filePath = 'public' + req.url;
-
-    var absPth = './' + filePath;
-
-    severSendStaticFiles(res, cache, absPth);
-
-})).listen(3000, () => {
-    console.log("Sever listening on port 3000...");
-});
-
-
-
 
 
 
