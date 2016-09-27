@@ -7,7 +7,7 @@ var chatServer = require('./lib/chat_server.js');
 
 //Those are the objects when the server run.
 var cache = {};
-var server = http.createServer((req, res) => {
+var server = http.createServer(function(req, res) {
 
     var filePath = false;
 
@@ -25,7 +25,7 @@ var server = http.createServer((req, res) => {
 *   This is a function for immediate execution.
 **/
 (function (){
-    server.listen(3000, () => {
+    server.listen(3000, function() {
         console.log("Server listening on port 3000...");
     });
     chatServer.listen(server);
@@ -34,8 +34,8 @@ var server = http.createServer((req, res) => {
 /**
 * Description:
 *   This is a function for send 404.
-*   @param : res    => res
-*   @return: null   => null
+*   @param res: res
+*   @return null
 **/
 function serverSendState404(res) {
     res.writeHead(
@@ -45,15 +45,15 @@ function serverSendState404(res) {
     );
     res.write('Error 404: resource not found.');
     res.end();
-};
+}
 
 /**
 * Description:
 *   This is a function for add contents into response.
-*   @param : res            => response
-*   @param : filePath       => filePath
-*   @param : fileContents   => fileContents
-*   @return: null           => null
+*   @param  res: response
+*   @param  filePath: filePath
+*   @param  fileContents: fileContents
+*   @return null
 **/
 function sendFileFromMemory(res, filePath, fileContents) {
     res.writeHead(
@@ -62,22 +62,22 @@ function sendFileFromMemory(res, filePath, fileContents) {
         }
     );
     res.end(fileContents);
-};
+}
 
 /**
 * Description:
 *   This is a function for send a static file , like *.html.
-*   @param : res        => res
-*   @param : cache      => cache
-*   @param : absPath    => absPath
-*   @return: null       => null
+*   @param res: res
+*   @param cache: cache
+*   @param absPath: absPath
+*   @return null
 **/
 function serverSendStaticFiles(res, cache, absPath) {
     if (cache[absPath]) sendFileFromMemory(res, absPath, cache[absPath]);
     else {
-        fs.exists(absPath, (exists) => {
+        fs.exists(absPath, function(exists) {
             if (exists) {
-                fs.readFile(absPath, (err, data) => {
+                fs.readFile(absPath, function(err, data) {
                     if (err) serverSendState404(res);
                     else {
                         cache[absPath] = data;
@@ -87,7 +87,7 @@ function serverSendStaticFiles(res, cache, absPath) {
             } else serverSendState404(res);
         });
     }
-};
+}
 
 
 
