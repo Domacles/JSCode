@@ -9,13 +9,13 @@ exports.listen = function (server) {
     io = socketio.listen(server);
 
     io.set('log level', 1);
-    io.sockets.on('connection', (socket) => {
+    io.sockets.on('connection', function (socket) {
         guestNumber = assignGuestName(socket, guestNumber, nickNames, namesUsed);
         joinRoom(socket, 'Lobby');
         handleMessageBroadcasting(socket, nickNames);
         handleNameChangeAttempts(socket, nickNames, namesUsed);
         handleRoomJoining(socket);
-        socket.on('rooms', () => {
+        socket.on('rooms', function () {
             socket.emit('rooms', io.sockets.manager.rooms);
         });
         handleClientDisconnection(socket, nickNames, namesUsed);
@@ -31,7 +31,7 @@ function assignGuestName(socket, guestNumber, nickNames, namesUsed) {
     });
     namesUsed.push(name);
     return guestNumber + 1;
-};
+}
 
 function joinRoom(socket, room) {
     socket.join(room);
@@ -46,10 +46,10 @@ function joinRoom(socket, room) {
     var usersInRoom = io.sockets.clients(room);
     if (usersInRoom.length > 1) {
         var usersInRoomSummary = 'User currently in ' + room + ': ';
-        for (var index in usersInRoom) {
-            var userSocketId = usersInRoom[index].id;
+        for (var i in usersInRoom) {
+            var userSocketId = usersInRoom[i].id;
             if (userSocketId != socket.id) {
-                if (index > 0) usersInRoomSummary += ', ';
+                if (i > 0) usersInRoomSummary += ', ';
                 usersInRoomSummary += nickNames[userSocketId];
             }
         }
@@ -58,10 +58,10 @@ function joinRoom(socket, room) {
             text: usersInRoomSummary
         });
     }
-};
+}
 
 function handleNameChangeAttempts(socket, nickNames, namesUsed) {
-    socket.on('nameAttempt', (name) => {
+    socket.on('nameAttempt', function (name) {
         if (name.indexOf('Guest') == 0) {
             socket.emit('nameResult', {
                 success: false,
@@ -89,27 +89,27 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
             }
         }
     });
-};
+}
 
 function handleMessageBroadcasting(socket, nickNames) {
-    socket.on('message', (message) => {
+    socket.on('message', function (message) {
         socket.broadcast.to(message.room).emit('message', {
             text: nickNames[socket.id] + ': ' + message.text
         });
     });
-};
+}
 
 function handleRoomJoining(socket) {
-    socket.on('join', (room) => {
+    socket.on('join', function (room) {
         socket.leave(currentRoom[socket.id]);
         joinRoom(socket, room.newRoom);
     });
-};
+}
 
 function handleClientDisconnection(socket, nickNames, namesUsed) {
-    socket.on('disconnect', () => {
+    socket.on('disconnect', function () {
         var nameIndex = namesUsed.indexOf(nickNames[socket.id]);
         delete namesUsed[nameIndex];
         delete nickNames[socket.io];
     });
-};
+}

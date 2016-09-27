@@ -46,5 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-chatrooms/.idea/
-chatrooms/node_modules
+chatrooms/node_modules/
+chatrooms/typings/
+chatrooms/tsconfig.json
