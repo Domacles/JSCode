@@ -7,7 +7,7 @@ var chatServer = require('./lib/chat_server.js');
 
 //Those are the objects when the server run.
 var cache = {};
-var server = http.createServer(function(req, res) {
+var server = http.createServer(function (req, res) {
 
     var filePath = false;
 
@@ -24,8 +24,8 @@ var server = http.createServer(function(req, res) {
 * Description:
 *   This is a function for immediate execution.
 **/
-(function (){
-    server.listen(3000, function() {
+(function () {
+    server.listen(3000, function () {
         console.log("Server listening on port 3000...");
     });
     chatServer.listen(server);
@@ -39,7 +39,7 @@ var server = http.createServer(function(req, res) {
 **/
 function serverSendState404(res) {
     res.writeHead(
-        404,{
+        404, {
             'Content-Type': 'text/plain'
         }
     );
@@ -57,7 +57,7 @@ function serverSendState404(res) {
 **/
 function sendFileFromMemory(res, filePath, fileContents) {
     res.writeHead(
-        200,{
+        200, {
             "content-type": mime.lookup(path.basename(filePath))
         }
     );
@@ -75,9 +75,9 @@ function sendFileFromMemory(res, filePath, fileContents) {
 function serverSendStaticFiles(res, cache, absPath) {
     if (cache[absPath]) sendFileFromMemory(res, absPath, cache[absPath]);
     else {
-        fs.exists(absPath, function(exists) {
+        fs.exists(absPath, function (exists) {
             if (exists) {
-                fs.readFile(absPath, function(err, data) {
+                fs.readFile(absPath, function (err, data) {
                     if (err) serverSendState404(res);
                     else {
                         cache[absPath] = data;
