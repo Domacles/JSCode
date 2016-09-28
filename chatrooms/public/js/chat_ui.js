@@ -27,7 +27,7 @@ function processUserInput(chatApp, socket) {
 
 
 $(document).ready(function () {
-    var charApp = new Chat(socket);
+    var chatApp = new Chat(socket);
 
     socket.on('nameResult', function (result) {
         var message;
