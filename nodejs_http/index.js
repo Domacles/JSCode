@@ -1,13 +1,15 @@
-var socketio = require('socket.io');
-var net = require('net');
+var http = require('http');
 
-var server = net.createServer(function(socket){
-    socket.on('data', function(){
-        socket.write(data);
-    });
+var server = http.createServer(function(req, res){
+    var body = 'asdasd';
+    res.setHeader('Content-Length', body.length);
+    res.setHeader('Content-Type', 'text/plain');
+    res.write(body);
+    res.end();
 });
 
-
 (function(){
-    server.listen(8888);
+    server.listen(3000, function(){
+        console.log("http server is listening on port 3000...");
+    });
 })();
