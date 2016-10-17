@@ -48,6 +48,11 @@ let server = net.createServer((socket) => {
 
 // those function used into socket callback.
 
+/**
+ * Get a socket name with socket's address.
+ * @param socket {Socket} get from net server.
+ * @return {string} create a socket name for the socket.
+ */
 function socketNameHandler(socket) {
     let address = socket.address();
     let socketName = '';
@@ -58,12 +63,21 @@ function socketNameHandler(socket) {
     return socketName;
 }
 
+/**
+ * This is a function for 'connect' event.
+ * @param socket {Socket} get from net server.
+ */
 function clientConnectHandler(socket) {
     let message = Buffer.alloc(0);
     let socketName = socketNameHandler(socket);
     sockets[socketName] = message;
 }
 
+/**
+ * This is a function for 'data' event.
+ * @param socket {Socket} get from net server.
+ * @param data {Buffer} socket client's data.
+ */
 function clientDataHandler(socket, data) {
     let socketName = socketNameHandler(socket);
     let message = sockets[socketName];
@@ -71,9 +85,13 @@ function clientDataHandler(socket, data) {
     sockets[socketName] = message;
 }
 
+/**
+ * This is a function for 'end' event.
+ * @param socket {Socket} get from net server.
+ */
 function clientEndHandler(socket) {
     let socketName = socketNameHandler(socket);
-    let message = sockets[socketName];
+    let message = sockets[socketName].toString('utf-8');
     let res = Buffer.alloc(0);
     if (authentication.checkMessage(context.SecretModel, message.KeyMessage) == true) {
         let operation = message.Operation;
@@ -85,6 +103,11 @@ function clientEndHandler(socket) {
     delete sockets[socketName];
 }
 
+/**
+ * This is a function for 'close' event.
+ * @param socket {Socket} get from net server.
+ * @param data {Buffer} socket client's data.
+ */
 function clientCloseHandler(socket, data) {
     let socketName = socketNameHandler(socket);
     let message = '' + sockets[socketName] + data;
@@ -93,6 +116,11 @@ function clientCloseHandler(socket, data) {
     delete sockets[socketName];
 }
 
+/**
+ * This is a function for 'error' event.
+ * @param socket {Socket} get from net server.
+ * @param error {Error} socket client's error.
+ */
 function clientErrorHandler(socket, error) {
     console.log('ERR : ' + socketNameHandler(socket));
     console.log(error);//deal error use myself
