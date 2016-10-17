@@ -1,0 +1,16 @@
+{
+    "HOST" : {
+        "name" : "127.0.0.1",
+        "port" : 6666
+    },
+
+    "Redis": {
+        "name" : "127.0.0.1",
+        "port" : 3879
+    },
+
+    "SecretModel": {
+        "type" : "function1",
+        "keys" : "1234567890"
+    }
+}
