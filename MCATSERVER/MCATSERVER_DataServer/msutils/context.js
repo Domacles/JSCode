@@ -1,7 +1,6 @@
 /**
- * 
+ * Defined a Context class for server config.
  */
-
 exports.Context = () => {
     this.Host = {
         "name" : "127.0.0.1",

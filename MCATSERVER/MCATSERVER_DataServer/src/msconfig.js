@@ -1,9 +1,14 @@
 /**
- * 
+ * Create a context with msconfig.json.
  */
 
 var fs = require('fs');
 
+/**
+ * Create a context with msconfig.json.
+ * @param fileName {string} the path of msconfig.json.
+ * @return {Context} defined in msutils/context.js
+ */
 exports.init = (fileName) => {
 
     let res = null;
