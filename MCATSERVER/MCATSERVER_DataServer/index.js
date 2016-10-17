@@ -36,13 +36,13 @@ let server = net.createServer((socket) => {
 
 // main function
 (function () {
-    server.listen(context.HOST.port, context.HOST.name);
+    server.listen(context.Host.port, context.Host.name);
     server.on('error', (error) => {
         console.log('server has error when it run...');
         console.log(error);//deal error use myself
     });
 
-    console.log('server start listening at PORT ' + context.HOST.port + ' on ' + context.HOST.name + '...');
+    console.log('server start listening at PORT ' + context.Host.port + ' on ' + context.Host.name + '...');
 })();
 
 
