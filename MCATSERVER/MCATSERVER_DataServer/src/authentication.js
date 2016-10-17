@@ -7,19 +7,19 @@ var msAlgorithm = require('../msutils/msalgorithm');
 /**
  * checkMessage keys.
  * @param secretModel {SecretModel} defined in msutils/context.js
- * @param {Message} 
+ * @param info {Message.Info} 
  * @param cipherText {string} cipherText in Message from socket client.
  * @return {boolean} cipherText in message is correct or not.
  */
-exports.checkMessage = (secretModel, message, cipherText) => {
+exports.checkMessage = (secretModel, info, cipherText) => {
 
     let timestamp = new Date().getTime();
-    if(timestamp - message.timestamp > 3000)
+    if (timestamp - info.timestamp > 3000)
         return false;
 
-    let res = (msAlgorithm[secretModel.type])(secretModel.keys, message);
+    let res = (msAlgorithm[secretModel.type])(secretModel.keys, info);
 
-    if(cipherText === res)
+    if (cipherText === res)
         return true;
     else
         return false;

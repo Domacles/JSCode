@@ -93,10 +93,10 @@ function clientEndHandler(socket) {
     let socketName = socketNameHandler(socket);
     let message = sockets[socketName].toString('utf-8');
     let res = Buffer.alloc(0);
-    if (authentication.checkMessage(context.SecretModel, message.KeyMessage) == true) {
+    if (authentication.checkMessage(context.SecretModel, message.Info, message.KeyMessage) == true) {
         let operation = message.Operation;
         res = Buffer.from(dataSource.handler(redis, operation));
-    } else{
+    } else {
         res = Buffer.from('authentication failed!!!');
     }
     socket.end(res);
