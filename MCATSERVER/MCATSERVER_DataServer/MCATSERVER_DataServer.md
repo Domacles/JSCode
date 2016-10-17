@@ -46,6 +46,8 @@ index.js
 * `message` in `index.js` need a rule for its datastructs, and add `message.json` into `untils`.
 * `dataSource.js` need add the function for different request.
 * `msutils` need add into **git**.
-* Add this module into **git**.
 * Add *ORM* dataSource used with **MySQL**.
 
+## Did List
+
+* Add this module into **git**.
