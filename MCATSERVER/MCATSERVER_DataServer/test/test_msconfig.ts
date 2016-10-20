@@ -3,7 +3,7 @@
  * ref : https://github.com/caolan/nodeunit
  */
 
-var msconfig = require('../src/msconfig');
+import * as msconfig from '../src/msconfig';
 
 exports.setUp = (callback) => {
     this.fileName = '../msconfig.json';
