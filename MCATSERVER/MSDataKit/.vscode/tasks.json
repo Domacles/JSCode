@@ -1,0 +1,24 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "tsc",
+    "args": [],
+    "isShellCommand": true,
+    "suppressTaskName": true,
+    "showOutput": "always",
+    "problemMatcher": "$tsc",
+    "tasks": [
+        {
+            "taskName": "compileAndRedirect1",
+            "args": [
+                "-d",
+                "-p",
+                ".",
+                "--outDir",
+                "../MCATSERVER_DataServer/msutils"
+            ],
+            "showOutput": "always"
+        }
+    ]
+}

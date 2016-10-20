@@ -1,16 +1,16 @@
-"use strict";
 /**
  * Create a context with msconfig.json.
  */
-const fs = require("fs");
+import * as fs from 'fs';
+import * as msconfig from '../msutils/msconfig';
 /**
  * Create a context with msconfig.json.
  * @param fileName {string} the path of msconfig.json.
  * @return {Context} defined in msutils/context.js
  */
-function init(fileName) {
-    let res = null;
-    let config = '';
+export function init(fileName: string): msconfig.MsConfig{
+    let res: msconfig.MsConfig = null;
+    let config: string = '';
     if (fileName.indexOf('msconfig.json') == -1) {
         console.log('msconfig.json not found...');
         return res;
@@ -18,11 +18,9 @@ function init(fileName) {
     try {
         config = fs.readFileSync(fileName, 'utf-8');
         res = JSON.parse(config);
-    }
-    catch (e) {
+    } catch (e) {
         console.log('read ' + fileName + ' error...');
         return res;
     }
     return res;
 }
-exports.init = init;
