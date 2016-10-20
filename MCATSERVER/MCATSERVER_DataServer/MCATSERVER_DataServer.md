@@ -43,7 +43,7 @@ index.js
 
 ## Todo List
 
-* `message` in `index.js` need a rule for its datastructs, and add `message.json` into `untils`.
+* `*.js` use typescript build.
 * `dataSource.js` need add the function for different request.
 * `msutils` need add into **git**.
 * Add *ORM* dataSource used with **MySQL**.
@@ -51,3 +51,4 @@ index.js
 ## Did List
 
 * Add this module into **git**.
+* `message` in `index.js` need a rule for its datastructs, and add `message.json` into `untils`.
