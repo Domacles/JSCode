@@ -19,6 +19,17 @@
                 "../MCATSERVER_DataServer/msutils"
             ],
             "showOutput": "silent"
+        },
+        {
+            "taskName": "compileAndRedirect2",
+            "args": [
+                "-d",
+                "-p",
+                ".",
+                "--outDir",
+                "../MCATSERVER_DataServer/msutils"
+            ],
+            "showOutput": "silent"
         }
     ]
 }
