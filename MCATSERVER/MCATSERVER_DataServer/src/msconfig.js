@@ -2,7 +2,7 @@
 /**
  * Create a context with msconfig.json.
  */
-const fs = require("fs");
+const fs = require('fs');
 /**
  * Create a context with msconfig.json.
  * @param fileName {string} the path of msconfig.json.
@@ -26,3 +26,4 @@ function init(fileName) {
     return res;
 }
 exports.init = init;
+//# sourceMappingURL=msconfig.js.map

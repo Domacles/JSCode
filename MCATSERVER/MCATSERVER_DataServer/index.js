@@ -8,11 +8,11 @@
         3. Response the data according to the operation type of request.
  */
 "use strict";
-const authentication = require("./src/authentication");
-const dataSource = require("./src/dataSource");
-const msconfig = require("./src/msconfig");
-const Redis = require("ioredis");
-const net = require("net");
+const authentication = require('./src/authentication');
+const dataSource = require('./src/dataSource');
+const msconfig = require('./src/msconfig');
+const Redis = require('ioredis');
+const net = require('net');
 let sockets = {};
 let context = msconfig.init('msconfig.json');
 let redis = new Redis(context.redisAddress.port, context.redisAddress.name);
@@ -116,3 +116,4 @@ function clientErrorHandler(socket, error) {
     console.log('ERR : ' + socketNameHandler(socket));
     console.log(error); //deal error use myself
 }
+//# sourceMappingURL=index.js.map

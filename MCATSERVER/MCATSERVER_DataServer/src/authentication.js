@@ -1,5 +1,5 @@
 "use strict";
-const msAlgorithm = require("../msutils/msalgorithm");
+const msAlgorithm = require('../msutils/msalgorithm');
 /**
  * This is a function for check client's infomation.
  * @param {Security} security
@@ -22,3 +22,4 @@ function checkMessage(security, info) {
         return false;
 }
 exports.checkMessage = checkMessage;
+//# sourceMappingURL=authentication.js.map

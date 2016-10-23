@@ -6,7 +6,7 @@
     "args": [],
     "isShellCommand": true,
     "suppressTaskName": true,
-    "showOutput": "always",
+    "showOutput": "silent",
     "problemMatcher": "$tsc",
     "tasks": [
         {
@@ -18,7 +18,7 @@
                 "--outDir",
                 "../MCATSERVER_DataServer/msutils"
             ],
-            "showOutput": "always"
+            "showOutput": "silent"
         }
     ]
 }

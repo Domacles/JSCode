@@ -11,7 +11,8 @@
 function function1(keys, message) {
     let res = keys;
     for (let x in message) {
-        if(message[x] == keys) continue;
+        if (message[x] == keys)
+            continue;
         res = res + message[x];
     }
     return res;
