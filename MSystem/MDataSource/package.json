@@ -1,0 +1,15 @@
+{
+  "name": "mdatasource",
+  "version": "1.0.0",
+  "description": "This program is used for data control.",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MIsike",
+  "license": "ISC"
+}
