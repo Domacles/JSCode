@@ -26,5 +26,5 @@ let server: net.Server = net.createServer((socket: net.Socket) => {
 
 //Main Function
 (function () {
-    
+
 })();
