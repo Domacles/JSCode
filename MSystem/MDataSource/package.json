@@ -2,7 +2,7 @@
   "name": "mdatasource",
   "version": "1.0.0",
   "description": "This program is used for data control.",
-  "main": "src/index.js",
+  "main": "out/index.js",
   "directories": {
     "doc": "doc",
     "test": "test"
@@ -11,5 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "MIsike",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ioredis": "^2.4.0"
+  }
 }
