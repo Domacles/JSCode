@@ -1,0 +1,21 @@
+{
+  "name": "msystemmonitor",
+  "version": "1.0.0",
+  "description": "\"This is program for use electron showing system infomation.\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "win32pack": "electron-packager . --platform=win32 --overwrite"
+  },
+  "author": "MIsike",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.4.12",
+    "electron-prebuilt": "^1.4.12",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "electron-packager": "^8.4.0"
+  }
+}
