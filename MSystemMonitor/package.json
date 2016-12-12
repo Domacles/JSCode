@@ -11,16 +11,17 @@
   "author": "MIsike",
   "license": "ISC",
   "dependencies": {
-    "@types/promise": "^7.1.30",
+    "typescript": "^2.1.4",
+    "source-map-support": "^0.4.6",
+    "lodash": "^4.17.2",
     "electron": "^1.4.12",
     "electron-prebuilt": "^1.4.12",
-    "lodash": "^4.17.2",
-    "source-map-support": "^0.4.6",
-    "typescript": "^2.1.4"
+    "electron-packager": "^8.4.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.43",
+    "@types/promise": "^7.1.30",
     "@types/electron": "^1.4.29",
-    "@types/node": "0.0.2",
-    "electron-packager": "^8.4.0"
+    "@types/node": "0.0.2"
   }
 }
