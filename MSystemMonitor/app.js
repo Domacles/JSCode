@@ -1,25 +1,34 @@
-const { app, BrowserWindow } = require('electron');
-let win;
+"use strict";
+require("source-map-support/register");
+//module
+const electron = require("electron");
+//variate
+let app = electron.app;
+let mainWindow = null;
+//on 'ready'
+app.on('ready', () => {
+    createWindow();
+});
+//on 'activate'
+app.on('activate', () => {
+    if (mainWindow == null)
+        createWindow();
+});
+//on 'window-all-closed'
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin')
+        app.quit();
+});
+/**
+ * @func createWindow
+ * @description This is a function for createWindow and adding on eventListener.
+ */
 function createWindow() {
-    win = new BrowserWindow({ width: 800, height: 600 });
-    win.loadURL(`file://${__dirname}/app.html`);
-    win.webContents.openDevTools();
-    // 处理窗口关闭
-    win.on('closed', () => {
-        win = null;
+    mainWindow = new electron.BrowserWindow({ width: 800, height: 600 });
+    mainWindow.loadURL(`file://${__dirname}/app.html`);
+    //mainWindow.webContents.openDevTools();
+    mainWindow.on('closed', () => {
+        mainWindow = null;
     });
 }
-// Electron初始化完成
-app.on('ready', createWindow);
-// 处理退出
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
-app.on('activate', () => {
-    if (win === null) {
-        createWindow();
-    }
-});
 //# sourceMappingURL=app.js.map

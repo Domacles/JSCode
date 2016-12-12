@@ -1,7 +1,7 @@
+import 'source-map-support/register';
 //module
-let electron = require('electron');
-//class 
-let BrowserWindow: typeof Electron.BrowserWindow = Electron.BrowserWindow;
+import * as electron from 'electron';
+import * as fs from 'fs';
 //variate
 let app: Electron.App = electron.app;
 let mainWindow: Electron.BrowserWindow = null;
@@ -27,10 +27,10 @@ app.on('window-all-closed', () => {
  * @func createWindow
  * @description This is a function for createWindow and adding on eventListener.
  */
-function createWindow() {
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
-    mainWindow.webContents.openDevTools();
+function createWindow(): void {
+    mainWindow = new electron.BrowserWindow({ width: 800, height: 600 });
+    mainWindow.loadURL(`file://${__dirname}/app.html`);
+    //mainWindow.webContents.openDevTools();
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
