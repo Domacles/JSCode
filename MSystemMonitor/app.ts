@@ -2,38 +2,11 @@ import 'source-map-support/register';
 //module
 import * as electron from 'electron';
 import * as fs from 'fs';
-//variate
-let app: Electron.App = electron.app;
-let mainWindow: Electron.BrowserWindow = null;
+import * as child_process from 'child_process';
+//function & class
+const exec: typeof child_process.exec = child_process.exec;
+//var & let
+let cmd: String = process.platform == 'win32' ? 'tasklist' : 'ps aux';
+//custom function & class
 
-//on 'ready'
-app.on('ready', () => {
-    createWindow();
-});
-
-//on 'activate'
-app.on('activate', () => {
-    if (mainWindow == null)
-        createWindow();
-});
-
-//on 'window-all-closed'
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin')
-        app.quit();
-});
-
-/**
- * @func createWindow
- * @description This is a function for createWindow and adding on eventListener.
- */
-function createWindow(): void {
-    mainWindow = new electron.BrowserWindow({ width: 800, height: 600 });
-    mainWindow.loadURL(`file://${__dirname}/app.html`);
-    //mainWindow.webContents.openDevTools();
-    mainWindow.on('closed', () => {
-        mainWindow = null;
-    });
-}
-
-
+//main_script
