@@ -16,7 +16,7 @@ class Application {
         if (this.mainWindow === null)
             this.mainWindow = new BrowserWindow({ width: 800, height: 600 });
         this.mainWindow.setTitle('MSystemMonitor');
-        this.mainWindow.loadURL(`file://${__dirname}/app.html`);
+        this.mainWindow.loadURL(`file://${__dirname}/static/app.html`);
         this.mainWindow.on('closed', () => {
             this.mainWindow = null;
         });
