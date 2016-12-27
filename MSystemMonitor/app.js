@@ -27,12 +27,19 @@ class Application {
     }
     constructor(app = electron.app) {
         this.app = app;
+        this.mainWindow = null;
     }
     run() {
         let cmd = process.platform == 'win32' ? 'tasklist' : 'ps aux';
-        this.app.on('ready', this.createWindow);
-        this.app.on('window-all-closed', this.appQuit);
-        this.app.on('activate', this.appActivate);
+        this.app.on('ready', () => {
+            this.createWindow();
+        });
+        this.app.on('window-all-closed', () => {
+            this.appQuit();
+        });
+        this.app.on('activate', () => {
+            this.appActivate();
+        });
     }
 }
 ;
