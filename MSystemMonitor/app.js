@@ -1,6 +1,5 @@
 "use strict";
 require("source-map-support/register");
-//module
 const electron = require("electron");
 const child_process = require("child_process");
 //function & class
@@ -28,7 +27,6 @@ class Application {
     }
     constructor(app = electron.app) {
         this.app = app;
-        this.mainWindow = new BrowserWindow({ width: 800, height: 600 });
     }
     run() {
         let cmd = process.platform == 'win32' ? 'tasklist' : 'ps aux';

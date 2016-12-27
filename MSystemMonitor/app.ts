@@ -34,8 +34,6 @@ class Application {
 
     constructor(app = electron.app) {
         this.app = app;
-        this.mainWindow = new BrowserWindow({ width: 800, height: 600 });
-
     }
 
     run() {
