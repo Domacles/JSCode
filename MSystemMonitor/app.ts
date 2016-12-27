@@ -1,7 +1,7 @@
 import 'source-map-support/register';
 //module
-import * as electron from 'electron';
 import * as fs from 'fs';
+import * as electron from 'electron';
 import * as child_process from 'child_process';
 //function & class
 const exec: typeof child_process.exec = child_process.exec;
