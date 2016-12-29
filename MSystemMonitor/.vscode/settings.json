@@ -7,8 +7,10 @@
         "**/.DS_Store": true,
         "**/.gitignore": true,
         "**/.gitattributes": true,
-        "**/*.js": {"when": "$(basename).ts"},
-        "**/*.d.ts": {"when": "$(basename).ts"},
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/*/*.js": { "when": "$(basename).tsx" },
+        "**/*.d.ts": { "when": "$(basename).ts" },
+        "**/*/*.d.ts": { "when": "$(basename).tsx" },
         "**/*.js.map": true
     }
 }
