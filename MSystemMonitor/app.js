@@ -1,5 +1,4 @@
 "use strict";
-require("source-map-support/register");
 const electron = require("electron");
 const child_process = require("child_process");
 //function & class

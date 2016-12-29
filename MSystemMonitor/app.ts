@@ -1,4 +1,3 @@
-import 'source-map-support/register';
 //module
 import * as fs from 'fs';
 import * as electron from 'electron';
