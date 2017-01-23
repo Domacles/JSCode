@@ -1,7 +1,6 @@
-import 'source-map-support/register';
 //module
-import * as electron from 'electron';
 import * as fs from 'fs';
+import * as electron from 'electron';
 import * as child_process from 'child_process';
 //function & class
 const exec: typeof child_process.exec = child_process.exec;
@@ -34,15 +33,20 @@ class Application {
 
     constructor(app = electron.app) {
         this.app = app;
-        this.mainWindow = new BrowserWindow({ width: 800, height: 600 });
-
+        this.mainWindow = null;
     }
 
     run() {
         let cmd: String = process.platform == 'win32' ? 'tasklist' : 'ps aux';
-        this.app.on('ready', this.createWindow);
-        this.app.on('window-all-closed', this.appQuit);
-        this.app.on('activate', this.appActivate);
+        this.app.on('ready', () => {
+            this.createWindow();
+        });
+        this.app.on('window-all-closed', () => {
+            this.appQuit();
+        });
+        this.app.on('activate', () => {
+            this.appActivate();
+        });
     }
 };
 //main_script
