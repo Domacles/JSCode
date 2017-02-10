@@ -8,6 +8,9 @@ How to Start Visual Studio Code
 从 
 [https://code.visualstudio.com/docs?dv=win](https://code.visualstudio.com/docs?dv=win)
 中找到 Download VS Code ，进行下载安装。
+然后打开本文档，使用下图所示的按键进行预览：
+
+![预览按键](src/p1.png)
 
 ## 2. Quick Start ##
 
@@ -35,7 +38,7 @@ How to Start Visual Studio Code
 ## 3. My Advise ##
 
 * 首先，[IntelliSense](https://code.visualstudio.com/docs/languages/javascript)，如何设置，详细的看这个链接，简单说，就是：
-    + 先安装npm，
+    + 先安装npm，npm的介绍在这里[ npm ](http://www.runoob.com/nodejs/nodejs-npm.html)
     + ```Ctrl+\```可以打开当前路径下的cmd（Windows），当然你首先得```cd```到你需要写代码的工程文件夹下，使用```npm install tsd 或者 npm install typings```， typings是VSCode建议使用并用来代替tsd的，它主要是可以用来将ts文件编译成js文件的
     + 使用```tsd install jQuery```来安装jQuery的tsd文件，该文件使用typeScript定义了jQuery所需要的类型以及其API，可以用来做智能提示，也可以使用```typings install jQuery```来下载tsd文件，
     + 如果你同时使用这两个工具进行下载，你会发现下载的文件会有所区别。如果你并不明确知道你所需要的模块的名字，可以使用```tsd query node[a-z]+```这条命令搭配正则表达式进行搜索，或者干脆```tsd install node[a-z]+```将匹配到的字符串的模块全部下载，同样，在typings这个工具里，不是使用query而是使用search来搜索模块，
@@ -63,3 +66,19 @@ How to Start Visual Studio Code
 * 再最后，如果感觉有什么想用的但没有，那就看一下如何写插件，这个早晚都得接触的。
 
 * 再在最后，学习一下使用markdown吧，这个用来写文档还是很不错的，推荐学习网站：[Markdown 编辑器语法指南](https://segmentfault.com/markdown)。Markdown完全兼容html，复杂的效果完全可以使用html进行编写，不过这就背离了Markdown的初衷了。
+
+## 4. More ##
+
+当你需要写html时，首先需要编辑器VSCode支持对html标签的自动补全，因此你可以下载插件：
+
+![插件下载](src/p2.png)
+
+下载了插件就可以对需要语言进行支持了。
+
+这里有一个中文VSCode帮助计划：[中文帮助计划](https://github.com/jeasonstudio/CN-VScode-Docs)，阅读该文档可以加速掌握该编辑器的速度。
+
+下面就是我写的代码的支持效果：
+
+![JavaScript支持](src/p3.png)
+
+![Html的支持](src/p4.png)
