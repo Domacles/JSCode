@@ -1,0 +1,14 @@
+{
+  "name": "chorme_bookmarks_reoriganized",
+  "version": "1.0.0",
+  "description": "This is an app for deal chrome bookmarks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MIsike",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^7.0.8"
+  }
+}
