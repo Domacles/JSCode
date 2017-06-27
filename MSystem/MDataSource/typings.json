@@ -1,9 +1,0 @@
-{
-  "name": "mdatasource",
-  "dependencies": {},
-  "globalDependencies": {
-    "ioredis": "registry:dt/ioredis#0.0.0+20161012141933",
-    "lodash": "registry:dt/lodash#4.14.0+20161004174455",
-    "node": "registry:dt/node#6.0.0+20161019125345"
-  }
-}

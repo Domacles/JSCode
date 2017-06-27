@@ -1,9 +1,0 @@
-{
-  "name": "mcatserver_dataserver",
-  "dependencies": {},
-  "globalDependencies": {
-    "ioredis": "registry:dt/ioredis#0.0.0+20161012141933",
-    "node": "registry:dt/node#6.0.0+20161019125345",
-    "nodeunit": "registry:dt/nodeunit#0.0.0+20160316155526"
-  }
-}
