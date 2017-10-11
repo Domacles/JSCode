@@ -1,0 +1,30 @@
+// 将设置放入此文件中以覆盖默认设置
+{
+    // 控制字体大小。
+    "editor.fontSize": 18,
+    // 通过使用鼠标滚轮同时按住 Ctrl 可缩放编辑器的字体
+    "editor.mouseWheelZoom": true,
+    // 控制编辑器是否应呈现缩进参考线
+    "editor.renderIndentGuides": true,
+    "typescript.check.tscVersion": false,
+    "git.confirmSync": false,
+     // 配置 glob 模式以排除文件和文件夹。
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/.deploy_git": true,
+        "**/node_modules": true,
+        "**/db.json": true,
+        "**/public": true,
+        "*.js.map": true,
+        "*.js": true,
+        ".gitattributes": true,
+        ".gitignore": true
+    },
+    "workbench.colorTheme": "Tomorrow Night Blue",
+
+    // markdown pdf format
+    "markdown-pdf.type": "html"
+}

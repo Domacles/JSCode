@@ -1,0 +1,15 @@
+{
+  "name": "threejs_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/three": "^0.84.26"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MIsike",
+  "license": "ISC"
+}
