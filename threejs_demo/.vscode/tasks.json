@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "Build IndexJs",
+            "type": "shell",
+            "command": "tsc -p .",
+            "group": "build",
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
+            }
+        },
+        {
+            "taskName": "Build MainJs",
+            "type": "shell",
+            "command": "browserify index.js -o main.js",
+            "group": "build",
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
+            }
+        }
+    ]
+}
