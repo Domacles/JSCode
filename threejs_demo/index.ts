@@ -26,7 +26,7 @@ class Window_3D {
         loader.load("obj/cubecolors/cubecolors.js", this.createScene1);
         loader.load("obj/cubecolors/cube_fvc.js", this.createScene2);
 
-        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
